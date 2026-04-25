@@ -1,0 +1,41 @@
+{
+  "name": "node-focas",
+  "version": "1.0.0",
+  "stability": "experimental",
+  "description": "Node.js wrapper for the FOCAS library used to comunicate with Fanuc CNC. The main dependecy is koffi, used to load the FOCAS dll at runtime. This package doesn't include the FOCAS library itself.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "nodejs",
+    "node-focas",
+    "focas",
+    "fanuc",
+    "cnc",
+    "iot",
+    "automation"
+  ],
+  "author": "Amin Missaoui",
+  "license": "MIT",
+  "packageManager": "pnpm@10.28.0",
+  "dependencies": {
+    "koffi": "^2.16.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.3"
+  }
+}
