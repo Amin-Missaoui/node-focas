@@ -56,12 +56,17 @@ class NodeFocas {
     if (this.#handle)
       throw new NodeFocasError(`Already connected to ${ip}:${port}`);
 
-    const ptr = [null];
-    const ret = this.#functions.allclibhndl3(ip, port, timeout, ptr);
+    const ptr = koffi.alloc("unsigned short", 1);
 
-    if (ret !== FOCAS_ERROR_CODE.EW_OK) throw new FocasLibError(ret);
+    try {
+      const ret = this.#functions.allclibhndl3(ip, port, timeout, ptr);
 
-    this.#handle = ptr[0] as any;
+      if (ret !== FOCAS_ERROR_CODE.EW_OK) throw new FocasLibError(ret);
+
+      this.#handle = koffi.decode(ptr, "unsigned short");
+    } finally {
+      koffi.free(ptr);
+    }
   }
 
   /**
@@ -86,26 +91,30 @@ class NodeFocas {
   getStatus(): Status {
     const handle = this.#getHandle();
 
-    const ptr = [null];
-    const ret = this.#functions.statinfo(handle, ptr);
+    const ptr = koffi.alloc("ODBST", 1);
+    try {
+      const ret = this.#functions.statinfo(handle, ptr);
 
-    if (ret !== FOCAS_ERROR_CODE.EW_OK) throw new FocasLibError(ret);
+      if (ret !== FOCAS_ERROR_CODE.EW_OK) throw new FocasLibError(ret);
 
-    const res = ptr[0] as any;
-    return {
-      aut: res.aut,
-      manual: res.manual,
-      run: res.run,
-      edit: res.edit,
-      motion: res.motion,
-      mstb: res.mstb,
-      emergency: res.emergency,
-      write: res.write,
-      labelskip: res.labelskip,
-      alarm: res.alarm,
-      warning: res.warning,
-      battery: res.battery,
-    };
+      const res = koffi.decode(ptr, "ODBST");
+      return {
+        aut: res.aut,
+        manual: res.manual,
+        run: res.run,
+        edit: res.edit,
+        motion: res.motion,
+        mstb: res.mstb,
+        emergency: res.emergency,
+        write: res.write,
+        labelskip: res.labelskip,
+        alarm: res.alarm,
+        warning: res.warning,
+        battery: res.battery,
+      };
+    } finally {
+      koffi.free(ptr);
+    }
   }
 
   /**
@@ -116,15 +125,19 @@ class NodeFocas {
   getAlarm(): Alarm {
     const handle = this.#getHandle();
 
-    const ptr = [null];
-    const ret = this.#functions.alarm(handle, ptr);
+    const ptr = koffi.alloc("ODBALM", 1);
+    try {
+      const ret = this.#functions.alarm(handle, ptr);
 
-    if (ret !== FOCAS_ERROR_CODE.EW_OK) throw new FocasLibError(ret);
+      if (ret !== FOCAS_ERROR_CODE.EW_OK) throw new FocasLibError(ret);
 
-    const res = ptr[0] as any;
-    return {
-      data: res.data,
-    };
+      const res = koffi.decode(ptr, "ODBALM");
+      return {
+        data: res.data,
+      };
+    } finally {
+      koffi.free(ptr);
+    }
   }
 
   /**
@@ -135,17 +148,22 @@ class NodeFocas {
   getProgramName(): Program {
     const handle = this.#getHandle();
 
-    const ptr = [null];
-    const ret = this.#functions.exeprgname(handle, ptr);
+    const ptr = koffi.alloc("ODBEXEPRG", 1);
 
-    if (ret !== FOCAS_ERROR_CODE.EW_OK) throw new FocasLibError(ret);
+    try {
+      const ret = this.#functions.exeprgname(handle, ptr);
 
-    const res = ptr[0] as any;
+      if (ret !== FOCAS_ERROR_CODE.EW_OK) throw new FocasLibError(ret);
 
-    return {
-      name: res.name,
-      number: res.o_num,
-    };
+      const res = koffi.decode(ptr, "ODBEXEPRG");
+
+      return {
+        name: res.name,
+        number: res.o_num,
+      };
+    } finally {
+      koffi.free(ptr);
+    }
   }
 
   /**
@@ -161,19 +179,23 @@ class NodeFocas {
   readMacro(datano: number): Macro {
     const handle = this.#getHandle();
 
-    const ptr = [null];
-    const ret = this.#functions.rdmacro(handle, datano, 10, ptr);
+    const ptr = koffi.alloc("ODBM", 1);
+    try {
+      const ret = this.#functions.rdmacro(handle, datano, 10, ptr);
 
-    if (ret !== FOCAS_ERROR_CODE.EW_OK) throw new FocasLibError(ret);
+      if (ret !== FOCAS_ERROR_CODE.EW_OK) throw new FocasLibError(ret);
 
-    const res = ptr[0] as any;
+      const res = koffi.decode(ptr, "ODBM");
 
-    return {
-      datano,
-      raw: res.mcr_val,
-      decimals: res.dec_val,
-      value: applyDecimals(res.mcr_val, res.dec_val),
-    };
+      return {
+        datano,
+        raw: res.mcr_val,
+        decimals: res.dec_val,
+        value: applyDecimals(res.mcr_val, res.dec_val),
+      };
+    } finally {
+      koffi.free(ptr);
+    }
   }
 
   /**
