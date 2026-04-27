@@ -14,6 +14,8 @@ We recently started using [Node-RED](https://nodered.org/) for our automation ne
 > [!IMPORTANT]  
 > The FOCAS DLLs are not provided.
 > You must first obtain the neceesary DLLs from Fanuc or your machine distribuitor.
+> When loading the `Fwlib32.dll` you will need to use the 32-bit version of node.
+> All the DLLs including `Fwlib32.dll` or `Fwlib64.dll` need to be in the same directory as the main javascript program.
 
 > [!WARNING]  
 > This package is experimental and has not yet been tested in a real enviroment.
