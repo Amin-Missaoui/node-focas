@@ -4,13 +4,6 @@ Node.js wrapper for the [FOCAS protocol](https://www.inventcom.net/fanuc-focas-l
 It allows for simple communication with Fanuc CNCs.
 Uses [koffi](https://koffi.dev/) to load the FOCAs DLL at runtime.
 
-## Why
-
-At my current job i implement [MES](https://en.wikipedia.org/wiki/Manufacturing_execution_system) system for large manufacturing companies.  
-A big part of my job requires interconnecting with various machines all with different protocols.  
-Industry standard applications like [Ignition](https://inductiveautomation.com/) and [Kepware](https://www.ptc.com/en/products/kepware) are usually the goto but sometimes we are required to find other solutions.  
-We recently started using [Node-RED](https://nodered.org/) for our automation needs and although it has been great, also thanks to vast amount of packages available for protcols like [Modbus](https://en.wikipedia.org/wiki/Modbus), [TCP/IP](https://en.wikipedia.org/wiki/TCP/IP), [Serial](https://en.wikipedia.org/wiki/Serial_port) and [OPCua](https://en.wikipedia.org/wiki/OPC_Unified_Architecture), when it comes to [FOCAS](https://www.inventcom.net/fanuc-focas-library/general/overview), we found nothing that could help. This package serves as a the underlying implementation for what could then be a Node-RED package. It is still in experimental and i welcome any suggestion.
-
 > [!IMPORTANT]  
 > The FOCAS DLLs are not provided.
 > You must first obtain the neceesary DLLs from Fanuc or your machine distribuitor.
@@ -21,6 +14,13 @@ We recently started using [Node-RED](https://nodered.org/) for our automation ne
 > This package is experimental and has not yet been tested in a real enviroment.
 > Use in production only after thorough testing on your end.
 > Future updates may break existing functionality.
+
+## Why
+
+At my current job i implement [MES](https://en.wikipedia.org/wiki/Manufacturing_execution_system) system for large manufacturing companies.  
+A big part of my job requires interconnecting with various machines all with different protocols.  
+Industry standard applications like [Ignition](https://inductiveautomation.com/) and [Kepware](https://www.ptc.com/en/products/kepware) are usually the goto but sometimes we are required to find other solutions.  
+We recently started using [Node-RED](https://nodered.org/) for our automation needs and although it has been great, also thanks to vast amount of packages available for protcols like [Modbus](https://en.wikipedia.org/wiki/Modbus), [TCP/IP](https://en.wikipedia.org/wiki/TCP/IP), [Serial](https://en.wikipedia.org/wiki/Serial_port) and [OPCua](https://en.wikipedia.org/wiki/OPC_Unified_Architecture), when it comes to [FOCAS](https://www.inventcom.net/fanuc-focas-library/general/overview), we found nothing that could help. This package serves as a the underlying implementation for what could then be a Node-RED package. It is still in experimental and i welcome any suggestion
 
 ## Installation
 
